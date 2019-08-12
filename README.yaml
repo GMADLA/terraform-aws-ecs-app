@@ -1,0 +1,119 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-aws-ecs-php-app
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-aws-ecs-web-app
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-ecs-web-app.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-ecs-web-app"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-ecs-web-app.svg"
+    url: "https://github.com/cloudposse/terraform-aws-ecs-web-app/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+related:
+  - name: "terraform-aws-codebuild"
+    description: "Terraform Module to easily leverage AWS CodeBuild for Continuous Integration"
+    url: "https://github.com/cloudposse/terraform-aws-codebuild"
+  - name: "terraform-aws-ecr"
+    description: "Terraform Module to manage Docker Container Registries on AWS ECR"
+    url: "https://github.com/cloudposse/terraform-aws-ecr"
+  - name: "terraform-aws-ecs-codepipeline"
+    description: "Terraform Module for CI/CD with AWS Code Pipeline and Code Build for ECS"
+    url: "https://github.com/cloudposse/terraform-aws-ecs-codepipeline"
+  - name: "terraform-aws-ecs-container-definition"
+    description: "Terraform module to generate well-formed JSON documents that are passed to the aws_ecs_task_definition Terraform resource"
+    url: "https://github.com/cloudposse/terraform-aws-ecs-container-definition"
+  - name: "terraform-aws-eks-cluster"
+    description: "Terraform module for provisioning an EKS cluster"
+    url: "https://github.com/cloudposse/terraform-aws-eks-cluster"
+  - name: "terraform-aws-eks-workers"
+    description: "Terraform module to provision an AWS AutoScaling Group, IAM Role, and Security Group for EKS Workers"
+    url: "https://github.com/cloudposse/terraform-aws-eks-workers"
+  - name: "terraform-aws-ec2-autoscale-group"
+    description: "Terraform module to provision Auto Scaling Group and Launch Template on AWS"
+    url: "https://github.com/cloudposse/terraform-aws-ec2-autoscale-group"
+
+
+# Short description of this project
+description: |-
+  A Terraform module which implements a web app on ECS and supporting AWS resources.
+  This project is largely based of cloudposse/terraform-aws-ecs-web-app.
+  This module does not require a load balancer.
+
+# How to use this project
+usage: |-
+  Module usage examples:
+
+  - [without authentication](examples/without_authentication) - complete example without authentication
+  - [with Google OIDC authentication](examples/with_google_oidc_authentication) - complete example with Google OIDC authentication
+  - [with Cognito authentication](examples/with_cognito_authentication) - complete example with Cognito authentication
+
+
+  ```
+  module "default-backend-web-app" {
+    source                                          = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=master"
+    namespace                                       = "eg"
+    stage                                           = "testing"
+    name                                            = "appname"
+    vpc_id                                          = "${module.vpc.vpc_id}"
+    aws_logs_region                                 = "us-west-2"
+    ecs_cluster_arn                                 = "${aws_ecs_cluster.default.arn}"
+    ecs_cluster_name                                = "${aws_ecs_cluster.default.name}"
+    ecs_security_group_ids                          = ["${module.vpc.vpc_default_security_group_id}"]
+    ecs_private_subnet_ids                          = ["${module.subnets.private_subnet_ids}"]
+    codepipeline_enabled                            = "false"
+
+    environment = [
+      {
+        name = "COOKIE"
+        value = "cookiemonster"
+      },
+      {
+        name = "PORT"
+        value = "80"
+      }
+    ]
+  }
+  ```
+
+# Example usage
+#examples: |-
+#  Example goes here...
+
+# How to get started quickly
+#quickstart: |-
+#  Here's how to get started...
+
+# Other files to include in this README from the project folder
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Erik Osterman"
+    github: "osterman"
+  - name: "Igor Rodionov"
+    github: "goruha"
+  - name: "Andriy Knysh"
+    github: "aknysh"
+  - name: "Sarkis Varozian"
+    github: "sarkis"
