@@ -54,7 +54,7 @@ related:
 
 # Short description of this project
 description: |-
-  A Terraform module which implements a web app on ECS and supporting AWS resources.
+  A Terraform module which implements an app on ECS and supporting AWS resources.
   This project is largely based of cloudposse/terraform-aws-ecs-web-app.
   This module does not require a load balancer.
 
