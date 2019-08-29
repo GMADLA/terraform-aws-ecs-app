@@ -176,7 +176,7 @@ resource "aws_security_group_rule" "allow_icmp_ingress" {
 resource "aws_ecs_service" "ignore_changes_task_definition" {
   count                              = "${var.ignore_changes_task_definition == "true" ? 1: 0}"
   name                               = "${module.default_label.id}"
-  task_definition                    = "${aws_ecs_task_definition.default.family}:${aws_ecs_task_definition.default.revision}"
+  task_definition                    = "${aws_ecs_task_definition.default.arn}"
   desired_count                      = "${var.desired_count}"
   deployment_maximum_percent         = "${var.deployment_maximum_percent}"
   deployment_minimum_healthy_percent = "${var.deployment_minimum_healthy_percent}"
@@ -199,7 +199,7 @@ resource "aws_ecs_service" "ignore_changes_task_definition" {
 resource "aws_ecs_service" "default" {
   count                              = "${var.ignore_changes_task_definition == "false" ? 1: 0}"
   name                               = "${module.default_label.id}"
-  task_definition                    = "${aws_ecs_task_definition.default.family}:${aws_ecs_task_definition.default.revision}"
+  task_definition                    = "${aws_ecs_task_definition.default.arn}"
   desired_count                      = "${var.desired_count}"
   deployment_maximum_percent         = "${var.deployment_maximum_percent}"
   deployment_minimum_healthy_percent = "${var.deployment_minimum_healthy_percent}"
