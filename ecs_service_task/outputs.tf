@@ -43,12 +43,12 @@ output "service_security_group_id" {
   value       = "${aws_security_group.ecs_service.id}"
 }
 
-output "task_definition_family" {
-  description = "ECS task definition family"
-  value       = "${aws_ecs_task_definition.default.family}"
-}
+# output "task_definition_family" {
+#   description = "ECS task definition family"
+#   value       = "${aws_ecs_task_definition.default.family}"
+# }
 
-output "task_definition_revision" {
-  description = "ECS task definition revision"
-  value       = "${aws_ecs_task_definition.default.revision}"
-}
+# output "task_definition_revision" {
+#   description = "ECS task definition revision"
+#   value       = "${aws_ecs_task_definition.default.revision}"
+# }
