@@ -39,7 +39,7 @@ module "container_definition" {
 }
 
 module "ecs_service_task" {
-  source                            = "ecs_service_task"
+  source                            = "./ecs_service_task"
   name                              = "${var.name}"
   namespace                         = "${var.namespace}"
   stage                             = "${var.stage}"
