@@ -20,6 +20,7 @@ resource "aws_cloudwatch_log_group" "app" {
   tags = "${module.default_label.tags}"
 }
 
+
 module "container_definition" {
   source                       = "git::https://github.com/cloudposse/terraform-aws-ecs-container-definition.git?ref=tags/0.9.1"
   container_name               = "${module.default_label.id}"
@@ -30,6 +31,7 @@ module "container_definition" {
   healthcheck                  = "${var.healthcheck}"
   environment                  = "${var.environment}"
   port_mappings                = "${var.port_mappings}"
+  #secrets                      = "${var.secrets}"
 
   log_options = {
     "awslogs-region"        = "${var.aws_logs_region}"

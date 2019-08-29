@@ -174,6 +174,7 @@ resource "aws_security_group_rule" "allow_icmp_ingress" {
 }
 
 resource "aws_ecs_service" "ignore_changes_task_definition" {
+  depends_on = [ "aws_ecs_task_definition.default" ]
   count                              = "${var.ignore_changes_task_definition == "true" ? 1: 0}"
   name                               = "${module.default_label.id}"
   task_definition                    = "${aws_ecs_task_definition.default.arn}"
@@ -197,6 +198,7 @@ resource "aws_ecs_service" "ignore_changes_task_definition" {
 }
 
 resource "aws_ecs_service" "default" {
+  depends_on = [ "aws_ecs_task_definition.default" ]
   count                              = "${var.ignore_changes_task_definition == "false" ? 1: 0}"
   name                               = "${module.default_label.id}"
   task_definition                    = "${aws_ecs_task_definition.default.arn}"
