@@ -31,7 +31,7 @@ module "container_definition" {
   healthcheck                  = "${var.healthcheck}"
   environment                  = "${var.environment}"
   port_mappings                = "${var.port_mappings}"
-  #secrets                      = "${var.secrets}"
+  secrets                      = "${var.secrets}"
 
   log_options = {
     "awslogs-region"        = "${var.aws_logs_region}"
@@ -58,6 +58,7 @@ module "ecs_service_task" {
   security_group_ids                = ["${var.ecs_security_group_ids}"]
   private_subnet_ids                = ["${var.ecs_private_subnet_ids}"]
   container_port                    = "${var.container_port}"
+  tags                              = "${var.tags}"
 }
 
 module "ecs_codepipeline" {

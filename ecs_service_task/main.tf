@@ -41,14 +41,14 @@ module "exec_label" {
 resource "aws_ecs_task_definition" "default" {
   family                   = "${module.default_label.id}"
   container_definitions    = "${var.container_definition_json}"
-#   requires_compatibilities = ["${var.launch_type}"]
-#   network_mode             = "${var.network_mode}"
-#   cpu                      = "${var.task_cpu}"
-#   memory                   = "${var.task_memory}"
-#   execution_role_arn       = "${aws_iam_role.ecs_exec.arn}"
-#   task_role_arn            = "${aws_iam_role.ecs_task.arn}"
-#   tags                     = "${module.default_label.tags}"
-#   volume                   = "${var.volumes}"
+  requires_compatibilities = ["${var.launch_type}"]
+  network_mode             = "${var.network_mode}"
+  cpu                      = "${var.task_cpu}"
+  memory                   = "${var.task_memory}"
+  execution_role_arn       = "${aws_iam_role.ecs_exec.arn}"
+  task_role_arn            = "${aws_iam_role.ecs_task.arn}"
+  tags                     = "${module.default_label.tags}"
+  volume                   = "${var.volumes}"
 }
 
 # IAM
@@ -174,7 +174,6 @@ resource "aws_security_group_rule" "allow_icmp_ingress" {
 }
 
 resource "aws_ecs_service" "ignore_changes_task_definition" {
-  depends_on = [ "aws_ecs_task_definition.default" ]
   count                              = "${var.ignore_changes_task_definition == "true" ? 1: 0}"
   name                               = "${module.default_label.id}"
   task_definition                    = "${aws_ecs_task_definition.default.arn}"
@@ -198,7 +197,6 @@ resource "aws_ecs_service" "ignore_changes_task_definition" {
 }
 
 resource "aws_ecs_service" "default" {
-  depends_on = [ "aws_ecs_task_definition.default" ]
   count                              = "${var.ignore_changes_task_definition == "false" ? 1: 0}"
   name                               = "${module.default_label.id}"
   task_definition                    = "${aws_ecs_task_definition.default.arn}"
