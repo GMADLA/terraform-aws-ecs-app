@@ -43,3 +43,8 @@ output "webhook_url" {
   value       = "${module.ecs_codepipeline.webhook_url}"
   sensitive   = true
 }
+
+output "container_definition_json" {
+  description = "ECS Container Definition JSON"
+  value       = "${module.container_definition.json}"
+}
