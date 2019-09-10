@@ -3,10 +3,12 @@
 
 [![Cloud Posse][logo]](https://cpco.io/homepage)
 
-# terraform-aws-ecs-web-app [![Build Status](https://travis-ci.org/cloudposse/terraform-aws-ecs-web-app.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-aws-ecs-web-app) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-ecs-web-app.svg)](https://github.com/cloudposse/terraform-aws-ecs-web-app/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# terraform-aws-ecs-app [![Build Status](https://travis-ci.org/cloudposse/terraform-aws-ecs-web-app.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-aws-ecs-web-app) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-ecs-web-app.svg)](https://github.com/cloudposse/terraform-aws-ecs-web-app/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
-A Terraform module which implements a web app on ECS and supporting AWS resources.
+A Terraform module which implements an app on ECS and supporting AWS resources.
+This project is largely based of cloudposse/terraform-aws-ecs-web-app.
+This module does allow a load balancer.
 
 
 ---
@@ -55,8 +57,8 @@ Module usage examples:
 
 
 ```
-module "default-backend-web-app" {
-  source                                          = "git::https://github.com/cloudposse/terraform-aws-ecs-web-app.git?ref=master"
+module "default-backend-app" {
+  source                                          = "git::https://github.com/GMADLA/terraform-aws-ecs-app.git?ref=master"
   namespace                                       = "eg"
   stage                                           = "testing"
   name                                            = "appname"

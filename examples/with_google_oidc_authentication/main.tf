@@ -29,24 +29,6 @@ module "subnets" {
   nat_gateway_enabled = "true"
 }
 
-module "alb" {
-  source                    = "git::https://github.com/cloudposse/terraform-aws-alb.git?ref=tags/0.2.6"
-  name                      = "${var.name}"
-  namespace                 = "${var.namespace}"
-  stage                     = "${var.stage}"
-  attributes                = ["${compact(concat(var.attributes, list("alb")))}"]
-  vpc_id                    = "${module.vpc.vpc_id}"
-  ip_address_type           = "ipv4"
-  subnet_ids                = ["${module.subnets.public_subnet_ids}"]
-  security_group_ids        = ["${module.vpc.vpc_default_security_group_id}"]
-  access_logs_region        = "${var.region}"
-  https_enabled             = "true"
-  http_ingress_cidr_blocks  = ["0.0.0.0/0"]
-  https_ingress_cidr_blocks = ["0.0.0.0/0"]
-  certificate_arn           = "${var.certificate_arn}"
-  health_check_interval     = "60"
-}
-
 module "ecs_cluster_label" {
   source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.2.1"
   name       = "${var.name}"
@@ -115,31 +97,6 @@ module "web_app" {
   ecs_cluster_name       = "${aws_ecs_cluster.default.name}"
   ecs_security_group_ids = ["${module.vpc.vpc_default_security_group_id}"]
   ecs_private_subnet_ids = ["${module.subnets.private_subnet_ids}"]
-
-  alb_target_group_alarms_enabled                 = "true"
-  alb_target_group_alarms_3xx_threshold           = "25"
-  alb_target_group_alarms_4xx_threshold           = "25"
-  alb_target_group_alarms_5xx_threshold           = "25"
-  alb_target_group_alarms_response_time_threshold = "0.5"
-  alb_target_group_alarms_period                  = "300"
-  alb_target_group_alarms_evaluation_periods      = "1"
-
-  alb_arn_suffix = "${module.alb.alb_arn_suffix}"
-  alb_name       = "${module.alb.alb_name}"
-
-  alb_ingress_healthcheck_path = "/"
-
-  # NOTE: Cognito and OIDC authentication only supported on HTTPS endpoints; here we provide `https_listener_arn` from ALB
-  alb_ingress_authenticated_listener_arns       = ["${module.alb.https_listener_arn}"]
-  alb_ingress_authenticated_listener_arns_count = 1
-
-  # Unauthenticated paths (with higher priority than the authenticated paths)
-  alb_ingress_unauthenticated_paths             = ["/events"]
-  alb_ingress_listener_unauthenticated_priority = "50"
-
-  # Authenticated paths
-  alb_ingress_authenticated_paths             = ["/*"]
-  alb_ingress_listener_authenticated_priority = "100"
 
   authentication_type                        = "OIDC"
   authentication_oidc_client_id              = "${var.google_oidc_client_id}"

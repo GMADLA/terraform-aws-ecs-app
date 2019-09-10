@@ -46,11 +46,6 @@ variable "default_container_image" {
   default     = "nginxdemos/hello:latest"
 }
 
-variable "certificate_arn" {
-  type        = "string"
-  description = "SSL certificate ARN for ALB HTTPS endpoints"
-}
-
 variable "cognito_user_pool_arn" {
   type        = "string"
   description = "Cognito User Pool ARN"
