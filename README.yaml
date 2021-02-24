@@ -14,19 +14,7 @@ name: terraform-aws-ecs-app
 license: "APACHE2"
 
 # Canonical GitHub repo
-github_repo: cloudposse/terraform-aws-web-app
-
-# Badges to display
-badges:
-  - name: "Build Status"
-    image: "https://travis-ci.org/cloudposse/terraform-aws-ecs-web-app.svg?branch=master"
-    url: "https://travis-ci.org/cloudposse/terraform-aws-ecs-web-app"
-  - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-ecs-web-app.svg"
-    url: "https://github.com/cloudposse/terraform-aws-ecs-web-app/releases/latest"
-  - name: "Slack Community"
-    image: "https://slack.cloudposse.com/badge.svg"
-    url: "https://slack.cloudposse.com"
+github_repo: GMADLA/terraform-aws-web-app
 
 related:
   - name: "terraform-aws-codebuild"
@@ -56,7 +44,8 @@ related:
 description: |-
   A Terraform module which implements an app on ECS and supporting AWS resources.
   This project is largely based of cloudposse/terraform-aws-ecs-web-app.
-  This module does allow a load balancer.
+  This module does allow a load balancer configuration. It is designed for non
+  web accessible applications.
 
 # How to use this project
 usage: |-
@@ -117,3 +106,8 @@ contributors:
     github: "aknysh"
   - name: "Sarkis Varozian"
     github: "sarkis"
+
+copyrights:
+  - year: 2021
+    name: "GMADLA"
+    url: "https://www.globelifeinsurance.com/globelifedirect"

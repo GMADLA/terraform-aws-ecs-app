@@ -1,0 +1,25 @@
+# Use this file to define individuals or teams that are responsible for code in a repository.
+# Read more: <https://help.github.com/articles/about-codeowners/>
+#
+# Order is important: the last matching pattern has the highest precedence
+
+# These owners will be the default owners for everything
+*             @GMADLA/web-ops @GMADLA/terraform
+
+# GMADLA must review any changes to Makefiles
+**/Makefile   @GMADLA/web-ops
+**/Makefile.* @GMADLA/web-ops
+
+# GMADLA must review any changes to GitHub actions
+.github/*     @GMADLA/web-ops
+
+# GMADLA must review any changes to standard context definition,
+# but some changes can be rubber-stamped.
+**/context.tf   @GMADLA/web-ops @GMADLA/terraform
+**/*.tf         @GMADLA/web-ops @GMADLA/terraform
+README.md       @GMADLA/web-ops
+docs/*.md       @GMADLA/web-ops
+
+# GMADLA Admins must review all changes to CODEOWNERS or the mergify configuration
+.github/mergify.yml @GMADLA/web-ops
+.github/CODEOWNERS  @GMADLA/web-ops

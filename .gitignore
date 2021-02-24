@@ -11,3 +11,5 @@
 # Build Harness
 .build-harness
 build-harness/
+
+build-harness-extensions/
